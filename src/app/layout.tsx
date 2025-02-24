@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LoaderContextProvider } from "@/components/contexts/LoaderContext";
 import { Suspense } from "react";
-import AuthProvider from "../components/contexts/SessionContext";
+import AuthProvider from "../components/contexts/AuthContext";
+import SessionProvider from "../components/contexts/SessionContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +34,9 @@ export default function RootLayout({
         <Suspense>
           <LoaderContextProvider>
             <AuthProvider>
-              {children}
+              <SessionProvider>
+                {children}
+              </SessionProvider>
             </AuthProvider>
           </LoaderContextProvider>
         </Suspense>

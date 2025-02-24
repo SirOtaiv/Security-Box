@@ -1,14 +1,24 @@
-"use client";
+"use client"; 
 
-import { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
-import { ReactNode } from "react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { useCustomRouter } from "../../lib/hooks/useCustomRouter";
 
-interface AuthProviderProps {
-    children: ReactNode;
-    session?: Session | null;
-  }
+const SessionProvider = ({ children }: { children: React.ReactNode }) => {
+    const { data: session, status } = useSession();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const router = useCustomRouter();
 
-export default function AuthProvider({ children, session }: AuthProviderProps) {
-  return <SessionProvider session={session}>{children}</SessionProvider>;
-}
+    useEffect(() => {
+    if (status === "authenticated") {
+        setIsAuthenticated(true);
+    }
+    if (!session) {
+        router.replace("/auth/login")
+    }
+    }, [session, status, router]);
+
+    return <>{children}</>;
+};
+
+export default SessionProvider;
