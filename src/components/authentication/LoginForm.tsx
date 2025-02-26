@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import { Button } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardContent, Grid, Typography } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
 import { signIn } from "next-auth/react";
@@ -9,6 +9,35 @@ import { DialogContext } from "../contexts/DialogContext";
 function LoginForm({ providers }: { providers: any[] }) {
     const appTheme = useTheme();
     const dialogContext = useContext(DialogContext)
+
+    const componentTest = (
+        <Box>
+            <Grid container spacing={2}>
+                <Card>
+                    <CardActionArea>
+                        <CardContent
+                            sx={{
+                                "&:last-child": {
+                                    paddingBottom: "16px",
+                                },
+                            }}
+                        >
+                            <Typography
+                                variant="subtitle2"
+                            >
+                                DAWNDLAWNDLJANWLDNW
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                            >
+                                akwdljandlanwdljnawldnawljdbkajwbdjkawbdkjbawkjdbawkjbdkjawbdkjawbdjk
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+            </Grid>
+        </Box>
+    )
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -30,12 +59,10 @@ function LoginForm({ providers }: { providers: any[] }) {
                         onClick={async () => {
                             dialogContext.openDialogComponent(
                                 "Select Your Password",
-                                "dmawidnilawndliawndlkanwlkdalwidhliawhdliahwd",
+                                componentTest,
                                 async (answer: string) => {
                                     if (answer == "Y") {
                                         alert("Dialog Got Right")
-                                    } else {
-                                        alert("CLOseseee")
                                     }
                                 }
                             )

@@ -59,7 +59,11 @@ const Dialog = ({ open, title, description, callback, closeDialog, hasCustomRule
                 </Tooltip>
             </DialogTitle>
             <DialogContent>
-                <DialogContentText>{description}</DialogContentText>
+                {typeof description === "string" ? (
+                    <DialogContentText>{description}</DialogContentText>
+                ) : (
+                    description
+                )}
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" color="primary" onClick={handleYesClick}>
