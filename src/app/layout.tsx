@@ -5,6 +5,7 @@ import { LoaderContextProvider } from "@/components/contexts/LoaderContext";
 import { Suspense } from "react";
 import AuthProvider from "../components/contexts/AuthContext";
 import SessionProvider from "../components/contexts/SessionContext";
+import DialogContextProvider from "../components/contexts/DialogContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +36,9 @@ export default function RootLayout({
           <LoaderContextProvider>
             <AuthProvider>
               <SessionProvider>
-                {children}
+                <DialogContextProvider>
+                  {children}
+                </DialogContextProvider>
               </SessionProvider>
             </AuthProvider>
           </LoaderContextProvider>

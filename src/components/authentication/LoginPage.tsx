@@ -16,7 +16,6 @@ import { ClientSafeProvider, getProviders, useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useCustomRouter } from "@/lib/hooks/useCustomRouter";
 import LoginForm from "./LoginForm";
-import Loader from "@/components/shared/loader/Loader";
 
 const DivPaper = styled("div")(() => {
     const appTheme = useTheme();
@@ -47,7 +46,6 @@ const DivForm = styled("div")(() => {
 
 function LoginPage() {
     const appTheme = useTheme();
-    const searchParams = useSearchParams();
     const [providers, setProviders] = useState<
         ClientSafeProvider[] | undefined
     >();
