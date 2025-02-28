@@ -92,7 +92,7 @@ function LoginPage() {
                         />
                     </Icon>
                     <Typography component="h1" variant="h4">
-                        Developers Portal
+                        Security Box
                     </Typography>
                     <Typography
                         color="textSecondary"
@@ -100,7 +100,7 @@ function LoginPage() {
                             margin: "12px 0px",
                         }}
                     >
-                        Sign in with your WEG username and password
+                        Sign in with your Username and Password
                     </Typography>
                     <DivForm>
                         {providers && (
@@ -121,7 +121,7 @@ function LoginPage() {
                                 align="center"
                             >
                                 {"Copyright © "}
-                                WEG {new Date().getFullYear()}. All
+                                Noobs Corp Inc {new Date().getFullYear()}. All
                                 rights reserved.
                             </Typography>
                         </Box>
@@ -136,7 +136,7 @@ function LoginPage() {
                 sx={{
                     backgroundImage: "url(/dev-portal.svg)",
                     backgroundRepeat: "no-repeat",
-                    backgroundColor: `#90c1e3`,
+                    backgroundColor: `#3a3a3a`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                 }}

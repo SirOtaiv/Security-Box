@@ -10,11 +10,43 @@ function LoginForm({ providers }: { providers: any[] }) {
     const appTheme = useTheme();
     const dialogContext = useContext(DialogContext)
 
+    const [selectedItem, setSelectedItem] = useState();
+
     const componentTest = (
-        <Box>
+        <Box
+        sx={{
+            display: "flex",
+            justifyContent: "left",
+            height: "100%",
+            alignItems: "start",
+            cursor: "not-allowed",
+        }}
+        >
             <Grid container spacing={2}>
                 <Card>
-                    <CardActionArea>
+                    <CardActionArea
+                        onClick={() => alert("dklawndlawnldbawkubdkuawbdk")}
+                    >
+                        <CardContent
+                            sx={{
+                                "&:last-child": {
+                                    paddingBottom: "16px",
+                                    paddingTop: "16px",
+                                },
+                            }}
+                        >
+                            <Typography
+                                variant="subtitle2"
+                            >
+                                1, 2
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+                <Card>
+                    <CardActionArea
+                        onClick={() => alert("2")}
+                    >
                         <CardContent
                             sx={{
                                 "&:last-child": {
@@ -25,12 +57,64 @@ function LoginForm({ providers }: { providers: any[] }) {
                             <Typography
                                 variant="subtitle2"
                             >
-                                DAWNDLAWNDLJANWLDNW
+                                1, 2
                             </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+                <Card>
+                    <CardActionArea
+                        onClick={() => alert("3")}
+                    >
+                        <CardContent
+                            sx={{
+                                "&:last-child": {
+                                    paddingBottom: "16px",
+                                },
+                            }}
+                        >
                             <Typography
-                                variant="body2"
+                                variant="subtitle2"
                             >
-                                akwdljandlanwdljnawldnawljdbkajwbdjkawbdkjbawkjdbawkjbdkjawbdkjawbdjk
+                                1, 2
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+                <Card>
+                    <CardActionArea
+                        onClick={() => alert("4")}
+                    >
+                        <CardContent
+                            sx={{
+                                "&:last-child": {
+                                    paddingBottom: "16px",
+                                },
+                            }}
+                        >
+                            <Typography
+                                variant="subtitle2"
+                            >
+                                1, 2
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
+                <Card>
+                    <CardActionArea
+                        onClick={() => alert("5")}
+                    >
+                        <CardContent
+                            sx={{
+                                "&:last-child": {
+                                    paddingBottom: "16px",
+                                },
+                            }}
+                        >
+                            <Typography
+                                variant="subtitle2"
+                            >
+                                1, 2
                             </Typography>
                         </CardContent>
                     </CardActionArea>
