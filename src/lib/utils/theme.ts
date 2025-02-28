@@ -15,7 +15,10 @@ const theme = createTheme({
             default: "#3a3a3a",
             paper: "#ffffff"
         }
+    },
+    shape: {
+        borderRadius: 6,
     }
-})
+});
 
 export default theme;
