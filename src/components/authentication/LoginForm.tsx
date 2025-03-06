@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 
-import { Box, Button, Card, CardActionArea, CardContent, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Card, CardActionArea, CardContent, Grid, Typography } from "@mui/material";
 
 import { useTheme } from "@mui/material/styles";
 import { signIn } from "next-auth/react";
 import { DialogContext } from "../contexts/DialogContext";
+import TextField from "../shared/Textfield";
 
 type CombinationsType = number[][]
 
@@ -15,14 +16,12 @@ function LoginForm({ providers }: { providers: any[] }) {
     const [combinationsItem, setCombinationsItens] = useState<CombinationsType>([[1,2],[3,4],[5,6],[7,8],[9,0]]);
     const [email, setEmail] = useState("");
 
-    const [selectedItem, setSelectedItem] = useState<CombinationsType>([]);
+    const selectedItem = useRef<CombinationsType>([]);
 
-    const handleNoClick = (combinationItem: number[]) => {
-        setSelectedItem((prevValue) => {
-            prevValue?.push(combinationItem)
-            return prevValue
-        })
-    }
+    const handleOnClick = (combinationItem: number[]) => {
+        selectedItem.current = [...selectedItem.current, combinationItem];
+        console.log("Itens selecionados:", selectedItem.current);
+    };
 
     const componentTest = (
         <Box
@@ -36,45 +35,50 @@ function LoginForm({ providers }: { providers: any[] }) {
                 padding: "16px",
             }}
         >
-                <Grid 
-                    container 
-                    gap={2}
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    {
-                        combinationsItem.map((combination, index) => {
-                            return (
-                                <Card
-                                    key={`combination-index-${index}`}
-                                    sx={{
-                                        boxShadow: "none",
-                                        border: "2px solid",
-                                        borderColor: "primary.dark",
-                                        textAlign: "center",
-                                        backgroundColor: "#f5f5f5",
+            <Grid 
+                container 
+                gap={2}
+                sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                <TextField 
+                    id="email-login-text"
+                    fullWidth
+                    label="Email"
+                />
+                {
+                    combinationsItem.map((combination, index) => {
+                        return (
+                            <Card
+                                key={`combination-index-${index}`}
+                                sx={{
+                                    boxShadow: "none",
+                                    border: "2px solid",
+                                    borderColor: "primary.dark",
+                                    textAlign: "center",
+                                    backgroundColor: "#f5f5f5",
 
-                                    }}
+                                }}
+                            >
+                                <CardActionArea
+                                    onClick={() => handleOnClick(combination)}
                                 >
-                                    <CardActionArea
-                                        onClick={() => handleNoClick(combination)}
-                                    >
-                                        <CardContent>
-                                            <Typography
-                                                variant="subtitle2"
-                                            >
-                                                {combination.join(" ou ")}
-                                            </Typography>
-                                        </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            )
-                        })
-                    }
-                </Grid>
+                                    <CardContent>
+                                        <Typography
+                                            variant="subtitle2"
+                                        >
+                                            {combination.join(" ou ")}
+                                        </Typography>
+                                    </CardContent>
+                                </CardActionArea>
+                            </Card>
+                        )
+                    })
+                }
+            </Grid>
         </Box>
     )
 
@@ -98,8 +102,9 @@ function LoginForm({ providers }: { providers: any[] }) {
                                 componentTest,
                                 async (answer: string) => {
                                     if (answer == "Y") {
-                                        alert("Dialog Got Right")
-                                        console.log(selectedItem)
+                                        console.log(selectedItem.current)
+                                        
+                                        selectedItem.current = [];
                                     }
                                 }
                             )
