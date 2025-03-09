@@ -85,7 +85,7 @@ function LoginPage() {
                     >
                         <ImgIcon
                             alt="Safety Box"
-                            src="/weg-logo-blue.svg"
+                            src="/login/NoobsCorp_Main_Icon.png"
                             sx={{
                                 marginBottom: appTheme.spacing(0.5),
                             }}
@@ -134,10 +134,10 @@ function LoginPage() {
                 sm={6}
                 md={8}
                 sx={{
-                    backgroundImage: "url(/dev-portal.svg)",
+                    backgroundImage: "url(/login/test_1.svg)",
                     backgroundRepeat: "no-repeat",
                     backgroundColor: `#3a3a3a`,
-                    backgroundSize: "cover",
+                    backgroundSize: "contain",
                     backgroundPosition: "center",
                 }}
             />

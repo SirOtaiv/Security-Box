@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 
 import { Box, Button, Card, CardActionArea, CardContent, Grid, Typography } from "@mui/material";
 
@@ -6,24 +6,25 @@ import { useTheme } from "@mui/material/styles";
 import { signIn } from "next-auth/react";
 import { DialogContext } from "../contexts/DialogContext";
 import TextField from "../shared/Textfield";
+import { getPasswordNumbers } from "../../lib/requests/loginRequests";
+import { useCustomRouter } from "../../lib/hooks/useCustomRouter";
 
 type CombinationsType = number[][]
 
 function LoginForm({ providers }: { providers: any[] }) {
     const appTheme = useTheme();
+    const router = useCustomRouter();
     const dialogContext = useContext(DialogContext)
 
-    const [combinationsItem, setCombinationsItens] = useState<CombinationsType>([[1,2],[3,4],[5,6],[7,8],[9,0]]);
     const [email, setEmail] = useState("");
 
     const selectedItem = useRef<CombinationsType>([]);
 
-    const handleOnClick = (combinationItem: number[]) => {
+    const handleOnCardClick = (combinationItem: number[]) => {
         selectedItem.current = [...selectedItem.current, combinationItem];
-        console.log("Itens selecionados:", selectedItem.current);
     };
 
-    const componentTest = (
+    const passwordComponent = (combinationsItem: CombinationsType) => (
         <Box
             sx={{
                 display: "flex",
@@ -49,7 +50,7 @@ function LoginForm({ providers }: { providers: any[] }) {
                     fullWidth
                     label="Email"
                 />
-                {
+                {!!combinationsItem &&   
                     combinationsItem.map((combination, index) => {
                         return (
                             <Card
@@ -64,7 +65,7 @@ function LoginForm({ providers }: { providers: any[] }) {
                                 }}
                             >
                                 <CardActionArea
-                                    onClick={() => handleOnClick(combination)}
+                                    onClick={() => handleOnCardClick(combination)}
                                 >
                                     <CardContent>
                                         <Typography
@@ -97,23 +98,47 @@ function LoginForm({ providers }: { providers: any[] }) {
                             marginTop: appTheme.spacing(1.5),
                         }}
                         onClick={async () => {
-                            dialogContext.openDialogComponent(
-                                "Select Your Password",
-                                componentTest,
-                                async (answer: string) => {
-                                    if (answer == "Y") {
-                                        console.log(selectedItem.current)
-                                        
-                                        selectedItem.current = [];
+                            const dataConf = await getPasswordNumbers();
+
+                            if (dataConf.result) {
+                                dialogContext.openDialogComponent(
+                                    "Select Your Password",
+                                    passwordComponent(dataConf.result.combinations),
+                                    async (answer: string) => {
+                                        if (answer == "Y") {
+                                            const combinations = selectedItem.current;
+                                            const hashCombine = dataConf.result?.hash;
+                                            const signInResult = await signIn(provider.id, {
+                                                email,
+                                                combinations,
+                                                hashCombine,
+                                                dialogContext,
+                                                redirect: false
+                                            })
+                                            if (signInResult?.error) {
+                                                const [status, message] = signInResult.error.split("|");
+                                                dialogContext.openDialogComponent(
+                                                    `${status} - Security Box Error Request`,
+                                                    `${message}`
+                                                )
+                                            } else {
+                                                router.replace('/')           
+                                            }
+                                            selectedItem.current = [];
+                                        }
                                     }
-                                }
-                            )
-                                // signIn(provider.id, {
-                                //     email,
-                                //     password,
-                                //     redirect: true,
-                                //     callbackUrl: "/",
-                                // })
+                                )
+                            } else {
+                                dialogContext.openDialogComponent(
+                                    "500 - Security Box Error Request",
+                                    "An error has occurred, please try again Later",
+                                    (ans: any) => {
+                                        if (ans == "Y") {
+                                            console.log("CANCELLED")
+                                        }
+                                    }
+                                )
+                            }
                             }
                         }
                     >

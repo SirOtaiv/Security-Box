@@ -1,26 +1,35 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { CredentialsType, postLogin } from "../../../../lib/requests/loginRequests";
+import { convertToPairs } from "../../../../lib/utils/commum";
 
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
             name: "Credentials",
-            credentials: {
-                email: { label: "Email", type: "text", placeholder: "seu@email.com" },
-                password: { label: "Senha", type: "password" },
-            },
-        async authorize(credentials) {
-            if (credentials?.email === "admin@email.com" && credentials?.password === "123456") {
-                return { id: "1", name: "Admin", email: "admin@email.com" };
+            credentials: {},
+        async authorize(credentials: any) {
+            const authorizeComponent: CredentialsType = {
+                combinations: convertToPairs(credentials.combinations),
+                hash: credentials.hashCombine,
+                email: credentials.email
+            };
+            const loginRepsonse = await postLogin(
+                authorizeComponent
+            );
+            if (loginRepsonse.result) {
+                return { id: "1", name: loginRepsonse.result.username, email: "admin@email.com" };
             }
-            return null;
+            
+            throw new Error(`${loginRepsonse.error?.status}|${loginRepsonse.error?.message}`);
         },
         }),
     ],
     secret: process.env.NEXTAUTH_SECRET,
     pages: {
         signIn: "/auth/login",
-      },
+    },
+    
 }
 
 const handler = NextAuth(authOptions);
