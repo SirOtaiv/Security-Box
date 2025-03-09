@@ -6,7 +6,8 @@ export type DialogManagerRefType = {
         title: string,
         description: string | React.ReactNode,
         callback?: (...args: any[]) => any,
-        hasCustomRuleset?: boolean
+        hasCustomRuleset?: boolean,
+        oneButtonOnly?: boolean,
     ) => void;
 };
 
@@ -17,13 +18,15 @@ const DialogManager = forwardRef((props, ref) => {
         description: "",
         callback: () => {},
         hasCustomRuleset: false,
+        oneButtonOnly: false,
     });
 
     const openDialogComponent = (
         title: string,
         description: string,
         callback?: (...args: any[]) => any,
-        hasCustomRuleset = false
+        hasCustomRuleset = false,
+        oneButtonOnly = false
     ) => {
         setDialogData({
             open: true,
@@ -31,6 +34,7 @@ const DialogManager = forwardRef((props, ref) => {
             description,
             callback: callback || (() => {}),
             hasCustomRuleset,
+            oneButtonOnly,
         });
     };
 
@@ -50,6 +54,7 @@ const DialogManager = forwardRef((props, ref) => {
             callback={dialogData.callback}
             closeDialog={closeDialog}
             hasCustomRuleset={dialogData.hasCustomRuleset}
+            oneButtonOnly={dialogData.oneButtonOnly}
         />
     );
 });

@@ -119,7 +119,10 @@ function LoginForm({ providers }: { providers: any[] }) {
                                                 const [status, message] = signInResult.error.split("|");
                                                 dialogContext.openDialogComponent(
                                                     `${status} - Security Box Error Request`,
-                                                    `${message}`
+                                                    `${message}`,
+                                                    undefined,
+                                                    undefined,
+                                                    true
                                                 )
                                             } else {
                                                 router.replace('/')           
@@ -136,7 +139,8 @@ function LoginForm({ providers }: { providers: any[] }) {
                                         if (ans == "Y") {
                                             console.log("CANCELLED")
                                         }
-                                    }
+                                    },
+                                    true
                                 )
                             }
                             }

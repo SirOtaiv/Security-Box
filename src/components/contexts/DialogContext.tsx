@@ -18,6 +18,7 @@ export type DialogContextType = {
         description: string | ReactNode,
         closeCallback?: (...args: any[]) => any,
         hasCustomRuleset?: boolean,
+        oneButtonOnly?: boolean,
     ) => any;
 };
 
@@ -38,8 +39,8 @@ function DialogContextProvider({ children }: PropsType) {
     const dialogManagerRef = useRef<DialogManagerRefType>(null);
 
     const openDialogComponent = useCallback(
-        (title: string, description: string | React.ReactNode, callback?: (...args: any[]) => any, hasCustomRuleset?: boolean) => {
-            dialogManagerRef.current?.openDialogComponent(title, description, callback, hasCustomRuleset);
+        (title: string, description: string | React.ReactNode, callback?: (...args: any[]) => any, hasCustomRuleset?: boolean, oneButtonOnly?: boolean,) => {
+            dialogManagerRef.current?.openDialogComponent(title, description, callback, hasCustomRuleset, oneButtonOnly);
         },
         []
     );

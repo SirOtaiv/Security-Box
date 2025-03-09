@@ -21,9 +21,10 @@ type PropsType = {
     callback: (...args: any[]) => void;
     closeDialog: () => void;
     hasCustomRuleset?: boolean;
+    oneButtonOnly?: boolean
 };
 
-const Dialog = ({ open, title, description, callback, closeDialog, hasCustomRuleset }: PropsType) => {
+const Dialog = ({ open, title, description, callback, closeDialog, hasCustomRuleset, oneButtonOnly }: PropsType) => {
     const appTheme = useTheme();
 
     const handleYesClick = () => {
@@ -66,12 +67,21 @@ const Dialog = ({ open, title, description, callback, closeDialog, hasCustomRule
                 )}
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" color="primary" onClick={handleYesClick}>
-                    Yes
-                </Button>
-                <Button variant="contained" color="primary" onClick={handleNoClick}>
-                    No
-                </Button>
+                {oneButtonOnly ? (
+                    <Button variant="contained" color="primary" onClick={handleYesClick}>
+                        OK
+                    </Button>
+                    ) : (
+                        <>
+                            <Button variant="contained" color="primary" onClick={handleYesClick}>
+                                Yes
+                            </Button>
+                            <Button variant="contained" color="primary" onClick={handleNoClick}>
+                                No
+                            </Button>
+                        </>
+                    )
+                }
             </DialogActions>
         </MaterialDialog>
     );
