@@ -12,6 +12,7 @@ export default function Home() {
       <Suspense>
           <Typography>
             Login Realizado :)
+            Seja Bem Vindo, {session.data.user?.name}
           </Typography>
       </Suspense>
     )

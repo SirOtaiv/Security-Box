@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 
 import { Box, Button, Card, CardActionArea, CardContent, Grid, Typography } from "@mui/material";
 
@@ -16,8 +16,7 @@ function LoginForm({ providers }: { providers: any[] }) {
     const router = useCustomRouter();
     const dialogContext = useContext(DialogContext)
 
-    const [email, setEmail] = useState("");
-
+    const emailRef = useRef<any>(null);
     const selectedItem = useRef<CombinationsType>([]);
 
     const handleOnCardClick = (combinationItem: number[]) => {
@@ -47,8 +46,10 @@ function LoginForm({ providers }: { providers: any[] }) {
             >
                 <TextField 
                     id="email-login-text"
+                    ref={emailRef}
                     fullWidth
                     label="Email"
+                    type="email"
                 />
                 {!!combinationsItem &&   
                     combinationsItem.map((combination, index) => {
@@ -107,6 +108,7 @@ function LoginForm({ providers }: { providers: any[] }) {
                                     async (answer: string) => {
                                         if (answer == "Y") {
                                             const combinations = selectedItem.current;
+                                            const email = emailRef.current.getValue();
                                             const hashCombine = dataConf.result?.hash;
                                             const signInResult = await signIn(provider.id, {
                                                 email,
