@@ -18,7 +18,7 @@ export const authOptions: NextAuthOptions = {
                 authorizeComponent
             );
             if (loginRepsonse.result) {
-                return { id: "1", name: loginRepsonse.result.username, email: "admin@email.com" };
+                return { id: "1", name: loginRepsonse.result.username, email: authorizeComponent.email };
             }
             
             throw new Error(`${loginRepsonse.error?.status}|${loginRepsonse.error?.message}`);
