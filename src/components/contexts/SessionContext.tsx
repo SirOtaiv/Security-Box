@@ -10,12 +10,13 @@ const SessionProvider = ({ children }: { children: React.ReactNode }) => {
     const router = useCustomRouter();
 
     useEffect(() => {
-    if (status === "authenticated") {
-        setIsAuthenticated(true);
-    }
-    if (!session) {
-        router.replace("/auth/login")
-    }
+        if (status === "authenticated") {
+            setIsAuthenticated(true);
+        }
+
+        if (status === "unauthenticated" || !session) {
+            router.replace("/auth/login");
+        }
     }, [session, status, router]);
 
     return <>{children}</>;
