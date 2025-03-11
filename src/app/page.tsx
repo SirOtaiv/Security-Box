@@ -10,10 +10,10 @@ export default function Home() {
   return (
     !!session.data && (
       <Suspense>
-          <Typography>
-            Login Realizado :)
-            Seja Bem Vindo, {session.data.user?.name}
-          </Typography>
+        <Typography>
+          Login Realizado :)
+          Seja Bem Vindo, {session.data.user?.name}
+        </Typography>
       </Suspense>
     )
   );

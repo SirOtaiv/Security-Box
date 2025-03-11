@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import AuthProvider from "../components/contexts/AuthContext";
 import SessionProvider from "../components/contexts/SessionContext";
 import DialogContextProvider from "../components/contexts/DialogContext";
-import { ThemeProvider } from "@mui/material";
+import { Grid, ThemeProvider } from "@mui/material";
 import theme from "../lib/utils/theme";
 
 const geistSans = Geist({
@@ -40,7 +40,17 @@ export default function RootLayout({
               <AuthProvider>
                 <SessionProvider>
                   <DialogContextProvider>
-                    {children}
+                    <Grid
+                      container
+                      justifyContent={"center"}
+                      alignItems={"center"}
+                      sx={{
+                        height: "100vh",
+                        width: "100vw"
+                      }}
+                    >
+                      {children}
+                    </Grid>
                   </DialogContextProvider>
                 </SessionProvider>
               </AuthProvider>
