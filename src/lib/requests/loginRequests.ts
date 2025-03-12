@@ -2,19 +2,19 @@
 
 import http from "node:http";
 import https from "node:https";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import { LoginOptionEntity } from "./types/backendTypes";
 import RequestResponse from "./types/RequestResponse";
 import { backendUrl } from "../environmentVariables";
 
 export type CredentialsType = {
-    email: string;
     hash: string;
     combinations: number[][];
 };
 
 export type UserReponse = {
     username: string;
+    email: string;
 }
 
 

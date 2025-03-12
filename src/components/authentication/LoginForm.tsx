@@ -16,7 +16,6 @@ function LoginForm({ providers }: { providers: any[] }) {
     const router = useCustomRouter();
     const dialogContext = useContext(DialogContext)
 
-    const emailRef = useRef<any>(null);
     const selectedItem = useRef<CombinationsType>([]);
 
     const handleOnCardClick = (combinationItem: number[]) => {
@@ -44,13 +43,6 @@ function LoginForm({ providers }: { providers: any[] }) {
                     justifyContent: "center",
                 }}
             >
-                <TextField 
-                    id="email-login-text"
-                    ref={emailRef}
-                    fullWidth
-                    label="Email"
-                    type="email"
-                />
                 {!!combinationsItem &&   
                     combinationsItem.map((combination, index) => {
                         return (
@@ -108,10 +100,8 @@ function LoginForm({ providers }: { providers: any[] }) {
                                     async (answer: string) => {
                                         if (answer == "Y") {
                                             const combinations = selectedItem.current;
-                                            const email = emailRef.current.getValue();
                                             const hashCombine = dataConf.result?.hash;
                                             const signInResult = await signIn(provider.id, {
-                                                email,
                                                 combinations,
                                                 hashCombine,
                                                 dialogContext,
@@ -129,8 +119,8 @@ function LoginForm({ providers }: { providers: any[] }) {
                                             } else {
                                                 router.replace('/')           
                                             }
-                                            selectedItem.current = [];
                                         }
+                                        selectedItem.current = [];
                                     }
                                 )
                             } else {

@@ -12,13 +12,12 @@ export const authOptions: NextAuthOptions = {
             const authorizeComponent: CredentialsType = {
                 combinations: convertToPairs(credentials.combinations),
                 hash: credentials.hashCombine,
-                email: credentials.email
             };
             const loginRepsonse = await postLogin(
                 authorizeComponent
             );
             if (loginRepsonse.result) {
-                return { id: "1", name: loginRepsonse.result.username, email: authorizeComponent.email };
+                return { id: "1", name: loginRepsonse.result.username, email: loginRepsonse.result.email };
             }
             
             throw new Error(`${loginRepsonse.error?.status}|${loginRepsonse.error?.message}`);
