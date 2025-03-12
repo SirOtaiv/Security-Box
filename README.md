@@ -2,6 +2,8 @@
 
 Frontend para a aplicação de gerenciamento de credenciais via teclado eletrônico. Nome do App: Security Box
 
+**Desenvolvedores**: Otavio Murilo Rau
+
 ## Configuração do Ambiente  
 
 Este projeto requer a configuração de variáveis de ambiente para o desenvolvimento local. Essas variáveis estão definidas no arquivo `dev-env.yml` e devem ser transferidas para um arquivo `.env.development` para garantir a execução correta. 
