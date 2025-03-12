@@ -1,33 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Security Box
 
-## Environment Configuration  
+Frontend para a aplicação de gerenciamento de credenciais via teclado eletrônico. Nome do App: Security Box
 
-This project requires environment variables to be set up for local development. These variables are defined in the `dev-env.yml` file and should be transferred to a `.env.development` file to ensure proper execution.  
+## Configuração do Ambiente  
 
-## Getting Started  
+Este projeto requer a configuração de variáveis de ambiente para o desenvolvimento local. Essas variáveis estão definidas no arquivo `dev-env.yml` e devem ser transferidas para um arquivo `.env.development` para garantir a execução correta. 
 
-To run the project locally, you need to create a `.env.development` file in the root directory and populate it with the necessary variables.  
+### Pré Requsitos
+|Tecnologia|Versão|
+|-|-|
+|Node|v20|
 
-### Step 1: Create the `.env.development` file  
+## Primeiros Passos  
 
-In the root of your project, create a new file named `.env.development`.  
+Para rodar o projeto localmente, você precisa criar um arquivo `.env.development` no diretório raiz e preenchê-lo com as variáveis necessárias.  
 
-### Step 2: Copy Variables from `dev-env.yml`  
+### Passo 1: Criar o arquivo `.env.development`  
 
-Open the `dev-env.yml` file and manually copy each key-value pair into `.env.development`, ensuring the correct format:  
+No diretório raiz do seu projeto, crie um novo arquivo chamado `.env.development`.  
 
-```env  
-# Example format for .env.development  
-NEXT_PUBLIC_API_URL=http://localhost:3000/api  
-DATABASE_URL=postgres://user:password@localhost:5432/database  
-AUTH_SECRET=your-secret-key  
+### Passo 2: Copiar Variáveis do `dev-env.yml`  
+
+Abra o arquivo `dev-env.yml` e copie manualmente cada par chave-valor para o `.env.development`, garantindo o formato correto:  
+
+- _Exemplo de modelo de escrita de .env_:
+
+    ```env
+    ...
+
+    NEXTAUTH_UR=http://localhost:3000/api  
+    ...
+    ```
+
+Essas são as regras para definir todas as variáveis:
+
+- __NEXTAUTH_URL__: Url da aplicação, (http://localhost:3000);
+- __NEXTAUTH_SECRET__: Hash usado pelo NextAuth para encriptar as transações internas, pode ser escolhido qualquer string;
+- __BACKEND_URL__: Url do backend;
+
+Cada variável do `dev-env.yml` deve ser convertida para o formato `.env`, onde as chaves são escritas em maiúsculas e os valores são atribuídos usando `=` sem espaços.
+
+### Step 4: Instalação das dependências
+
+Em um terminal dentro do diretório do projeto podemos rodar o comando para instalar essa dependências do projeto
+
+```bash
+npm install
+
 ```
 
-Each variable from dev-env.yml should be converted into the .env format, where keys are in uppercase and values are assigned using = without spaces.
+### Step 3: Executar o Servidor de Desenvolvimento
 
-### Step 3: Run the Development Server
-
-After setting up the `.env.development` file, start your local development server:
+Após configurar o arquivo `.env.development`, inicie o servidor de desenvolvimento local:
 
 ```bash
 npm run dev
@@ -38,18 +62,13 @@ pnpm dev
 # or
 bun dev
 ```
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Saiba Mais
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Para aprender mais sobre Next.js, confira os seguintes recursos:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [Documentação do Next.js ](https://nextjs.org/docs) - saiba mais sobre os recursos e API do Next.js.
+- [Aprenda Next.js](https://nextjs.org/learn) - um tutorial interativo sobre Next.js.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Você também pode conferir o [repositório do Next.js no GitHub](https://github.com/vercel/next.js) - seu feedback e contribuições são bem-vindos!
